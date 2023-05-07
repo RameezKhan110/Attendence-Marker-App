@@ -7,20 +7,35 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.attendencemaster.LoginFragment"
+        android:name="com.example.attendencemaster.presentation.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_attendenceListFragment3"
+            app:destination="@id/attendenceListFragment" />
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.example.attendencemaster.SignupFragment"
+        android:name="com.example.attendencemaster.presentation.auth.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
             android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_attendenceListFragment"
+            app:destination="@id/attendenceListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/attendenceListFragment"
+        android:name="com.example.attendencemaster.presentation.AttendenceListFragment"
+        android:label="fragment_attendence_list"
+        tools:layout="@layout/fragment_attendence_list" >
+        <action
+            android:id="@+id/action_attendenceListFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "829781578935",
+    "project_id": "attendencemaster-6c029",
+    "storage_bucket": "attendencemaster-6c029.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829781578935:android:1e9629e8a1d624edfee932",
+        "android_client_info": {
+          "package_name": "com.example.attendencemaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "829781578935-jttjkca0r3ao67k1cga57tsvceuhfc2u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.attendencemaster",
+            "certificate_hash": "212bcfdcf2d3724df1fc5f9b6949c6bd3a58656e"
+          }
+        },
+        {
+          "client_id": "829781578935-5m6e8b3ml04sit7co94602q5bf4p1rg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8sKAsR7Kcjp6V4qDgsV4XKjvZaAohBAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "829781578935-5m6e8b3ml04sit7co94602q5bf4p1rg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
