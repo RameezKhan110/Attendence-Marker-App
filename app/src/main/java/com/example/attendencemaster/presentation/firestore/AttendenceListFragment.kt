@@ -73,6 +73,12 @@ class AttendenceListFragment : Fragment() {
             openDatePicker()
         }
 
+        binding.todayAttendance.setOnClickListener {
+            val currentDate = Date()
+            val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val formattedDate = formatter.format(currentDate)
+            attendanceViewModel.getAttendanceByDate(formattedDate)
+        }
 
         binding.searchAttendance.setOnClickListener {
             val searchedDate = binding.datePicker.text.toString()

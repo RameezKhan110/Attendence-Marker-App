@@ -7,13 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.attendencemaster.databinding.AttendanceItemBinding
 import com.example.attendencemaster.domain.repository.Attendance
 
-class AttendanceAdapter(): ListAdapter<Attendance, AttendanceAdapter.AttendanceViewHolder>(DiffUtil()){
+class AttendanceAdapter() :
+    ListAdapter<Attendance, AttendanceAdapter.AttendanceViewHolder>(DiffUtil()) {
 
 
-    inner class AttendanceViewHolder(binding: AttendanceItemBinding): RecyclerView.ViewHolder(binding.root)
+    inner class AttendanceViewHolder(binding: AttendanceItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
-        val attendance = AttendanceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val attendance =
+            AttendanceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AttendanceViewHolder(attendance)
     }
 
