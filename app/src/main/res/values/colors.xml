@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="btn_color">#c1e76e</color>
+    <color name="dialogbox_btn">#0e1c2d</color>
 </resources>

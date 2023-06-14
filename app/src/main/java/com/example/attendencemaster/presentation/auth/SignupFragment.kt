@@ -32,10 +32,6 @@ class SignupFragment : Fragment() {
     ): View? {
         binding = FragmentSignupBinding.inflate(layoutInflater, container, false)
 
-        firebaseAuth = FirebaseAuth.getInstance()
-        firebaseUser  = firebaseAuth.currentUser
-
-
 
         binding.registerBtn.setOnClickListener {
             val registerUserName = binding.registerName.text.trim().toString()
@@ -67,33 +63,8 @@ class SignupFragment : Fragment() {
         return binding.root
     }
 
-//    private fun registerUser() {
-//        val registerUserName = binding.registerName.text.toString()
-//        val registerUserEmail = binding.registerEmail.text.toString()
-//        val registerUserPassword = binding.registerPassword.text.toString()
-//
-//        if(registerUserName.isNotBlank() && registerUserEmail.isNotBlank() && registerUserPassword.isNotBlank()){
-//
-//            firebaseAuth.createUserWithEmailAndPassword(registerUserEmail, registerUserPassword).addOnCompleteListener{ task ->
-//                if(task.isSuccessful){
-//                    Toast.makeText(requireContext(), "Successfully Registered", Toast.LENGTH_SHORT).show()
-//                    sendEmailVerification()
-//                    findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
-//                }else{
-//                    Toast.makeText(requireContext(), "SignUp Failed", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }else{
-//            Toast.makeText(requireContext(), "Email or Password Can't be empty", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-//
-//    private fun sendEmailVerification() {
-//
-//        firebaseUser?.sendEmailVerification()?.addOnCompleteListener{ task ->
-//            if(task.isSuccessful){
-//                Toast.makeText(requireContext(), "Email sent to user", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding == null
+    }
 }

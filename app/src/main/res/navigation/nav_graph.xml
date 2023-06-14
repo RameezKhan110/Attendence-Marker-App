@@ -31,11 +31,23 @@
     </fragment>
     <fragment
         android:id="@+id/attendenceListFragment"
-        android:name="com.example.attendencemaster.presentation.AttendenceListFragment"
+        android:name="com.example.attendencemaster.presentation.firestore.AttendenceListFragment"
         android:label="fragment_attendence_list"
         tools:layout="@layout/fragment_attendence_list" >
         <action
             android:id="@+id/action_attendenceListFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_attendenceListFragment_to_markAttendanceFragment"
+            app:destination="@id/markAttendanceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/markAttendanceFragment"
+        android:name="com.example.attendencemaster.presentation.firestore.MarkAttendanceFragment"
+        android:label="fragment_mark_attendance"
+        tools:layout="@layout/fragment_mark_attendance" >
+        <action
+            android:id="@+id/action_markAttendanceFragment_to_attendenceListFragment"
+            app:destination="@id/attendenceListFragment" />
     </fragment>
 </navigation>

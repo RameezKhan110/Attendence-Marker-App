@@ -4,6 +4,9 @@ import com.example.attendencemaster.utils.Resource
 import com.example.attendencemaster.domain.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -12,7 +15,6 @@ class AuthRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth)
     override val currentUser: FirebaseUser?
         get() = firebaseAuth.currentUser
 
-
     override suspend fun signUp(
         name: String,
         email: String,
@@ -20,7 +22,9 @@ class AuthRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth)
     ): Resource<FirebaseUser> {
         return try {
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+            FirebaseFirestore.getInstance().collection("User").document(FirebaseAuth.getInstance().currentUser!!.uid)
             Resource.Success(result.user!!)
+
         }catch (e: Exception){
             e.printStackTrace()
             Resource.Error(e)

@@ -69,37 +69,9 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-
-//    private fun loginUser() {
-//        val loginUserEmail = binding.loginEmail.text.toString()
-//        val loginUserPassword = binding.loginPassword.text.toString()
-//
-//        firebaseUser?.reload()?.addOnCompleteListener{
-//            if(it.isSuccessful){
-//                if(firebaseUser?.isEmailVerified == true){
-//                    if(loginUserEmail.isNotBlank() && loginUserPassword.isNotBlank()){
-//                        firebaseAuth.signInWithEmailAndPassword(loginUserEmail, loginUserPassword).addOnCompleteListener{ task ->
-//                            if(task.isSuccessful){
-//                                Toast.makeText(requireContext(), "Logging In", Toast.LENGTH_SHORT).show()
-//                                findNavController().navigate(R.id.action_loginFragment_to_attendenceListFragment3)
-//                            }else{
-//                                Toast.makeText(requireContext(), "Email or Password is incorrect", Toast.LENGTH_SHORT).show()
-//                            }
-//                        }
-//                    }else{
-//                        Toast.makeText(requireContext(), "Email or Password field can't be empty", Toast.LENGTH_SHORT).show()
-//                    }
-//                }else{
-//                    Toast.makeText(requireContext(), "Verify you email first", Toast.LENGTH_SHORT).show()
-//                }
-//            }else{
-//                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//
-//
-//    }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding == null
+    }
 
 }
