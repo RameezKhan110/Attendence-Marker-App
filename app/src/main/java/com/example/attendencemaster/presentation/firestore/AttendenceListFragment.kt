@@ -1,10 +1,13 @@
 package com.example.attendencemaster.presentation.firestore
 
 import android.app.DatePickerDialog
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -20,12 +23,14 @@ import com.example.attendencemaster.databinding.FragmentAttendenceListBinding
 import com.example.attendencemaster.presentation.auth.AuthViewModel
 import com.example.attendencemaster.presentation.firestore.adapter.AttendanceAdapter
 import com.example.attendencemaster.utils.NetworkResponse
+import com.example.attendencemaster.utils.Status
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -44,9 +49,35 @@ class AttendenceListFragment : Fragment() {
     ): View? {
         binding = FragmentAttendenceListBinding.inflate(layoutInflater, container, false)
 
+        attendanceViewModel.addState()
+
+        val currentTime = attendanceViewModel.getTime()
+        val neutralTime = "03:50 PM"
+        val desiredTime = neutralTime.format(DateTimeFormatter.ofPattern("hh:mm a"))
+
+        Log.d("TAG", "time: $currentTime$desiredTime")
+        if(currentTime == desiredTime){
+            attendanceViewModel.saveNeutralState(Status.NEUTRAL)
+            Log.d("TAG", "both time are equal")
+        }
+
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                MarkAttendanceFragment.LOCATION_PERMISSION_REQUEST_CODE
+            )
+        }
+
         signOutMenu()
-
-
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = attendanceAdapter
@@ -73,17 +104,63 @@ class AttendenceListFragment : Fragment() {
             openDatePicker()
         }
 
-        binding.todayAttendance.setOnClickListener {
+        binding.allChip.setOnClickListener {
+            binding.todayChip.isChecked = false
+            binding.weekChip.isChecked = false
+            binding.monthChip.isChecked = false
+            binding.allChip.isChecked = true
+            attendanceViewModel.getAttendanceForUsers()
+            attendanceViewModel.getAttendance.observe(viewLifecycleOwner, Observer {
+                when (it) {
+                    is NetworkResponse.Error -> {
+                        binding.attendanceListFragmentProgressBar.visibility = View.GONE
+                        binding.recyclerView.visibility = View.VISIBLE
+                    }
+                    is NetworkResponse.Loading -> {
+                        binding.attendanceListFragmentProgressBar.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+                    }
+                    is NetworkResponse.Success -> {
+                        binding.attendanceListFragmentProgressBar.visibility = View.GONE
+                        attendanceAdapter.submitList(it.data)
+                    }
+                }
+            })
+        }
+
+        binding.todayChip.setOnClickListener {
+            binding.todayChip.isChecked = true
+            binding.weekChip.isChecked = false
+            binding.monthChip.isChecked = false
+            binding.allChip.isChecked = false
             val currentDate = Date()
             val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val formattedDate = formatter.format(currentDate)
             attendanceViewModel.getAttendanceByDate(formattedDate)
         }
 
+        binding.weekChip.setOnClickListener {
+            binding.weekChip.isChecked = true
+            binding.todayChip.isChecked = false
+            binding.monthChip.isChecked = false
+            binding.allChip.isChecked = false
+            attendanceViewModel.getLastWeekAttendance()
+        }
+
+        binding.monthChip.setOnClickListener {
+            binding.todayChip.isChecked = false
+            binding.weekChip.isChecked = false
+            binding.monthChip.isChecked = true
+            binding.allChip.isChecked = false
+
+            attendanceViewModel.getLastMonthAttendance()
+
+        }
+
         binding.searchAttendance.setOnClickListener {
             val searchedDate = binding.datePicker.text.toString()
             attendanceViewModel.getAttendanceByDate(searchedDate)
-            Log.d("TAG", "selectedDate" + searchedDate)
+            Log.d("TAG", "selectedDate$searchedDate")
 
         }
 

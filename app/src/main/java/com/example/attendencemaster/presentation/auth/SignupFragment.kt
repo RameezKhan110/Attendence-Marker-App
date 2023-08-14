@@ -40,11 +40,12 @@ class SignupFragment : Fragment() {
             authViewModel.signup(registerUserName, registerUserEmail, registerUserPassword)
         }
 
-        lifecycleScope.launch(){
-            authViewModel.signupFlow.collect{
-                when(it){
+        lifecycleScope.launch() {
+            authViewModel.signupFlow.collect {
+                when (it) {
                     is Resource.Error -> {
-                        Toast.makeText(requireContext(), it.exception.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.exception.message, Toast.LENGTH_SHORT)
+                            .show()
                     }
                     Resource.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
@@ -58,7 +59,7 @@ class SignupFragment : Fragment() {
                     }
                 }
             }
-            }
+        }
 
         return binding.root
     }

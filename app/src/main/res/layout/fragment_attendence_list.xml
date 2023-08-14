@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="250dp"
+            android:layout_width="330dp"
             android:layout_height="35dp"
             android:id="@+id/datePicker"
             android:layout_gravity="center"
@@ -43,19 +43,64 @@
 
         </ImageView>
 
-        <Button
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#0e1c2d"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/todayAttendance"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
-            android:text="Today">
+            android:layout_marginStart="20dp"
+            app:chipSpacingHorizontal="25dp"
+            app:singleSelection="true">
 
-        </Button>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/allChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:text="All" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/todayChip"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Today" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/weekChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="Last Week"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/monthChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+
+                android:text="Last Month"
+                android:textColor="@color/black" />
+
+
+        </com.google.android.material.chip.ChipGroup>
 
     </LinearLayout>
 
@@ -67,8 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
         tools:listitem="@layout/attendance_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -77,9 +121,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="36dp"
+        android:backgroundTint="#FF2400"
+        android:layout_marginBottom="32dp"
         android:clickable="true"
-        android:src="@drawable/ic_baseline_add_24"
+        android:src="@drawable/calenderlogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
